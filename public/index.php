@@ -1,7 +1,9 @@
 <?php
 
+use App\Controller\Admin\ProductsController as AppProductsController;
 use App\Controller\CartController;
 use App\Controller\ProductsController;
+use CoffeeCode\Uploader\Image;
 
 require '../vendor/autoload.php';
 
@@ -29,7 +31,26 @@ if(isset($_POST['upd']) && !empty($_POST['upd'])){
 if(isset($_POST['delete']) && !empty($_POST['delete'])){
     $delete = htmlentities($_POST['delete']);
 }
-
+if(isset($_POST['add']) && $_POST['add'] === '1'){
+    $image = new Image("img", "images");
+     if (!empty($_FILES)) {
+    $upload = $image->upload($_FILES['upload'], $_POST['product_name']);
+}
+    $create = $_POST;
+}
+if(isset($_GET['cre']) && !empty($_GET['cre'])){
+    $cre = htmlentities($_GET['cre']);
+}
+if(isset($_POST['update']) && $_POST['update'] === '1'){
+    $image = new Image("img", "images");
+    if (!empty($_FILES)) {
+   $photo = $image->upload($_FILES['upload'], $_POST['product_name']);
+}
+   $update  = $_POST;
+}
+if(isset($_POST['supp'])){
+    $supp = $_POST['supp'];
+}
 ob_start();
 if($p === 'home'){
     $controller = new ProductsController();
@@ -68,6 +89,24 @@ if($p === 'home'){
         $controller->delete($delete);
     }else{
         $controller->index();
+    }
+}elseif($p === 'admin.products.index'){
+    $controller = new AppProductsController();
+    if(isset($supp) && !is_null($supp)){
+        $controller->delete($supp);
+    }else{
+        $controller->index();
+    }
+}elseif($p === 'admin.products.create'){
+    $controller = new AppProductsController();
+    if(isset($create) && !is_null($create)){
+        $controller->add($create, $upload);
+    }elseif(isset($update) && !is_null($update)){
+        $controller->update($update, $photo, $update['pid']);
+    }elseif(isset($cre) && !is_null($cre)){
+        $controller->edit($cre);
+    }else{
+        $controller->create();
     }
 }
 

@@ -20,7 +20,7 @@
                 <form method="post" action="">
                     <td style="text-align:center; display:inline;">
                         <button type="button" value="<?= $cart->getId() ?>" class="btn btn-danger remove"><i class="fa fa-trash"></i></button>
-                        <button href="submit" name="upd" value="<?= $cart->getId() ?>" class="btn btn-primary update"><i class="fa fa-plus"></i></button>
+                        <button type="submit" name="upd" value="<?= $cart->getId() ?>" class="btn btn-primary update"><i class="fa fa-plus"></i></button>
                     </td>
                     <td><img src="<?= $cart->getProduct_image() ?>" width="100" height="50"></td>
                     <td><?= $cart->getProduct_title() ?></td>

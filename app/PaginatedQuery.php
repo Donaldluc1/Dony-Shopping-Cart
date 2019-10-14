@@ -34,6 +34,22 @@ class PaginatedQuery{
         return $this->items;
     }
 
+    public function getProducts(): array
+    {
+        if($this->items === null){
+            $currentPage = $this->getCurrentPage();
+            $pages = $this->getPages();
+            if($currentPage > $pages){
+                throw new \Exception("Cette page n'existe pas");
+            }
+            $offset = $this->perPage * ($currentPage - 1);
+            $this->items = $this->pdo->query($this->query .
+             " LIMIT {$this->perPage} OFFSET $offset")
+             ->fetchAll();
+        }
+        return $this->items;
+    }
+
     public function previousLink(string $link): ?string
     {
         $currentPage = $this->getCurrentPage();

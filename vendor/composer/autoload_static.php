@@ -10,6 +10,7 @@ class ComposerStaticInitefea73b08593ac7e2f5cb7e24e831782
         'C' => 
         array (
             'Core\\' => 5,
+            'CoffeeCode\\Uploader\\' => 20,
         ),
         'A' => 
         array (
@@ -21,6 +22,10 @@ class ComposerStaticInitefea73b08593ac7e2f5cb7e24e831782
         'Core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Core',
+        ),
+        'CoffeeCode\\Uploader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/coffeecode/uploader/src',
         ),
         'App\\' => 
         array (

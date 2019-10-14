@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Core\\' => array($baseDir . '/Core'),
+    'CoffeeCode\\Uploader\\' => array($vendorDir . '/coffeecode/uploader/src'),
     'App\\' => array($baseDir . '/app'),
 );
