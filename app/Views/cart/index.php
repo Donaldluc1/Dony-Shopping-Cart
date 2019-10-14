@@ -1,5 +1,9 @@
 <div class="container text-center">
-    <div id="cart_msg"></div>
+    <?php if(isset($_GET['del'])): ?>
+        <div class="alert alert-success">
+            The product was deleted successfully !!!
+        </div>
+    <?php endif ?>
     <table class="table-responsive">
         <thead>
             <th>Action</th>
@@ -10,20 +14,25 @@
             <th>Total IN CFA F</th>
         </thead>
         <tbody>
+            <?php $sum = null; ?>
             <?php foreach($carts as $cart): ?>
             <tr>
-                <td style="text-align:center;">
-                    <a href="#" class="btn btn-danger remove"><i class="fa fa-trash"></i></a>
-                     <a href="#" class="btn btn-primary update"><i class="fa fa-plus"></i></a>
-                </td>
-                <td><img src="<?= $cart->getProduct_image() ?>" width="100" height="50"></td>
-                <td><?= $cart->getProduct_title() ?></td>
-                <td><input type="text" class="form-control qty" pid='18' id='qty-18' value="<?= $cart->getQty() ?>"></td>
-                <td><input type="text" class="form-control price" pid='18' id='price-18' value="<?= $cart->getPrice() ?>" disabled></td>
-                <td><input type="text" class="form-control total" pid='18' id='total-18' value="<?= $cart->getPrice() ?>" disabled></td>
+                <form method="post" action="">
+                    <td style="text-align:center; display:inline;">
+                        <button type="button" value="<?= $cart->getId() ?>" class="btn btn-danger remove"><i class="fa fa-trash"></i></button>
+                        <button href="submit" name="upd" value="<?= $cart->getId() ?>" class="btn btn-primary update"><i class="fa fa-plus"></i></button>
+                    </td>
+                    <td><img src="<?= $cart->getProduct_image() ?>" width="100" height="50"></td>
+                    <td><?= $cart->getProduct_title() ?></td>
+                    <td><input type="text" class="form-control qty" name='qty' value="<?= $cart->getQty() ?>"></td>
+                    <td><input type="text" class="form-control price" name='price' value="<?= $cart->getPrice() ?>" readonly></td>
+                    <td><input type="text" class="form-control total" value="<?= $cart->getTotal_amt() ?>" disabled></td>
+                </form>
             </tr>
+            <?php 
+            $sum += $cart->getTotal_amt();
+            ?>
             <?php endforeach ?>
-                        
         </tbody>
     </table>
     <p><br></p>
@@ -32,7 +41,7 @@
             <div><h3>Grand Total</h3></div>
         </div>
         <div class="col-md-4">
-            <div><h1 id="cart_checkout">????</h1></div>
+            <div><?= $sum ?></h1></div>
         </div>
     </div>
 </div>
@@ -55,4 +64,21 @@ document.addEventListener('DOMContentLoaded', function(){
         //on recupere l'index du td
         //on va mettre le data-label qui correspond
 })
+</script>
+<script>
+    $(document).ready(function(){
+        $(".remove").click(function(event){
+            alert("Voulez-vous vraiment effectuer cette opération ?")
+            var del = $(this).val()
+            $.ajax({
+                url     :"",
+                method  : "POST",
+                data    : {delete:del},
+                success : function(data){
+                    window.location.href = "?p=card&del=1"
+                }
+            })
+        })
+    })
+    
 </script>

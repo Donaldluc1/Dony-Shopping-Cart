@@ -59,7 +59,7 @@ abstract class Table{
         return $this->pdo->query($sql, PDO::FETCH_CLASS, $this->class)->fetchAll();
     }
 
-    public function delete($id, int $tid)
+    public function delete($id, $tid)
     {
         $query = $this->pdo->prepare("DELETE FROM {$this->table} WHERE {$tid} = ?");
         $ok = $query->execute([$id]);
@@ -82,13 +82,13 @@ abstract class Table{
         return (int)$this->pdo->lastInsertId();
     }
 
-    public function update(array $data, int $id, int $tid)
+    public function update(array $data, int $id, $tid)
     {
         $sqlFields = [];
         foreach($data as $key => $values){
             $sqlFields[] = "$key = :$key";
         }
-        $query = $this->pdo->prepare("UPDATE {$this->table} SET " . implode(', ', $sqlFields) . " WHERE {$tid} = :id");
+        $query = $this->pdo->prepare("UPDATE {$this->table} SET " . implode(', ', $sqlFields) . " WHERE {$tid} = :id");   
         $ok = $query->execute(array_merge($data, ['id' => $id]));
         if($ok === false){
             throw new \Exception("Impossible de modifier l'enregistrement de la table {$this->table}");

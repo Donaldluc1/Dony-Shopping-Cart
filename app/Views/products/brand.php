@@ -30,9 +30,9 @@
                         <button type='button' title='Add to Wishlist' class='btn btn-secondary'>
                             <i class='fa fa-heart-o'></i>
                         </button>
-                        <button type='button' title='Add to Cart' class='btn btn-secondary'>
+                        <a href="?p=brand&id=<?= $brandId->getBid() ?>&add=<?= $brandId->getPid() ?>" title='Add to Cart' class='btn btn-secondary'>
                             <i class='fa fa-shopping-cart'></i>
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class='product-bottom text-center'>

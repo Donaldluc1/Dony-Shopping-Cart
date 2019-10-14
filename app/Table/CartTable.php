@@ -23,4 +23,12 @@ class CartTable extends Table{
         $cart->setId($id);
     }
 
+    public function updateCart($qty, $id, $price): void
+    {
+        $this->update([
+            'qty' => $qty,
+            'total_amt' => $qty * $price
+        ], $id, 'id');
+    }
+
 }

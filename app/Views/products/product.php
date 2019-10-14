@@ -41,7 +41,7 @@
                     <p><b>Brand:</b> XWZ Company</p>
                     <label>Stock:</label>
                     <input type="text" value="<?= $product->getProduct_stock() ?>" readonly>
-                    <button class="btn btn-primary" type="button">Add to Cart</button>
+                    <a class="btn btn-primary" href="?p=products&pid=<?= $product->getPid() ?>&add=<?= $product->getPid() ?>">Add to Cart</a>
                 </div>
             </div>
         </div>

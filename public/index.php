@@ -20,6 +20,15 @@ if(isset($_GET['pid']) && !empty($_GET['pid'])){
 if(isset($_GET['add']) && !empty($_GET['add'])){
     $add = htmlentities($_GET['add']);
 }
+if(isset($_POST['upd']) && !empty($_POST['upd'])){
+    $upid = htmlentities($_POST['upd']);
+    $qty = htmlentities($_POST['qty']);
+    $price = htmlentities($_POST['price']);
+    
+}
+if(isset($_POST['delete']) && !empty($_POST['delete'])){
+    $delete = htmlentities($_POST['delete']);
+}
 
 ob_start();
 if($p === 'home'){
@@ -33,16 +42,32 @@ if($p === 'home'){
         $controller->products();
     }
 }elseif ($p === 'brand') {
+    if(isset($add) && !is_null($add)){
+        $controller = new ProductsController();
+        $controller->products($add);
+    }else{
     $controller = new ProductsController();
     $controller->brands($id);
+    }
 }elseif ($p === 'category') {
+    if(isset($add) && !is_null($add)){
+        $controller = new ProductsController();
+        $controller->products($add);
+    }else{
     $controller = new ProductsController();
     $controller->categories($id);
+    }
 }elseif ($p === 'product') {
     $controller = new ProductsController();
     $controller->show($pid, "pid");
 }elseif ($p === 'card') {
     $controller = new CartController();
-    $controller->index();
+    if(isset($upid) && !is_null($upid)){
+        $controller->update($upid, $qty, $price);
+    }elseif(isset($delete) && !is_null($delete)){
+        $controller->delete($delete);
+    }else{
+        $controller->index();
+    }
 }
 

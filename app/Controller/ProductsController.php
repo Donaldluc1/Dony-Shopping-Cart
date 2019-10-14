@@ -54,7 +54,7 @@ class ProductsController extends AppController {
                 $cart->setProductimage($img);
                 $cart->setPrice($product->getProduct_price());
                 $cart->setQty(1);
-                $cart->setTotalamt($product->getProduct_price());
+                $cart->setTotalamt($product->getProduct_price() * $cart->getQty());
                 $this->cartTable->createCart($cart);
                 $echo[] = "The product have being added to your cart, Please continue shopping";
             }
