@@ -10,22 +10,20 @@ final class BrandTable extends Table{
     protected $class = Brand::class;
 
 
-    public function updateBrand(Brand $brand): void
+    public function updateBrand(Brand $brand, $id): void
     {
         $this->update([
-            'bid' => $brand->getBid(),
             'brand_name' => $brand->getBrand_name(),
             'status' => $brand->getStatus()
-        ], $brand->getBid(), $brand->getBid());
+        ], $id, "bid");
     }
 
     public function createBrand(Brand $brand): void
     {
         $id = $this->create([
-            'bid' => $brand->getBid(),
             'brand_name' => $brand->getBrand_name(),
             'status' => $brand->getStatus()
-        ], $brand->getBid(), $brand->getBid());
+        ]);
         $brand->setBid($id);
     }
 

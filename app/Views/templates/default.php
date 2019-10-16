@@ -27,7 +27,8 @@
         <div class="menu-bar">
             <ul>
                 <?php if(isset($_SESSION['auth'])): ?>
-                    <li><a href="admin.php">Home</a></li>
+                    <li><a href="admin.php">Products</a></li>
+                    <li><a href="?p=admin.brands.index">Brands</a></li>
                     <li><a href="?p=admin.categories.index">Categories</a></li>
                     <li><a href="admin.php?p=logout">Logout</a></li>
                 <?php else: ?>

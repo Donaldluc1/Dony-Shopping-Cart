@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\Admin\AdminsController;
+use App\Controller\Admin\BrandsController;
 use App\Controller\Admin\CategoriesController;
 use App\Controller\Admin\ProductsController as AppProductsController;
 use CoffeeCode\Uploader\Image;
@@ -55,6 +56,19 @@ if(isset($_POST['addCat']) && $_POST['addCat'] === '1'){
 if(isset($_POST['suppcat'])){
     $suppcat = $_POST['suppcat'];
 }
+if(isset($_POST['addBrand']) && $_POST['addBrand'] === '1'){
+    $addBrand = $_POST;
+}
+if(isset($_GET['updbrand']) && !empty($_GET['updbrand'])){
+    $updbrand = htmlentities($_GET['updbrand']);
+}
+if(isset($_POST['editBrand']) && $_POST['editBrand'] === '1'){
+    $editBrand = $_POST;
+}
+if(isset($_POST['suppbrand'])){
+    $suppbrand = $_POST['suppbrand'];
+}
+
 
 if($p === 'logout'){
     $controller = new AdminsController();
@@ -97,5 +111,26 @@ if($p === 'logout'){
         $controller->add($addCat);
     }else{
         $controller->create();
+    }
+}elseif($p === 'admin.brands.index'){
+    $controller = new BrandsController();
+    if(isset($suppbrand)){
+        $controller->delete($suppbrand);
+    }else{
+        $controller->index();
+    }
+}elseif($p === 'admin.brands.create'){
+    $controller = new BrandsController();
+    if(isset($addBrand)){
+        $controller->add($addBrand);
+    }else{
+        $controller->create();
+    }
+}elseif($p === 'admin.brands.update'){
+    $controller = new BrandsController();
+    if(isset($editBrand)){
+        $controller->update($editBrand);
+    }else{
+        $controller->edit($updbrand);
     }
 }
