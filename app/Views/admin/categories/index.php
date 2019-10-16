@@ -1,49 +1,37 @@
-
 <div class="container text-center">
     <?php if(isset($deleted)): ?>
         <div class="alert alert-success">
             <?= $deleted?>
         </div>
     <?php endif ?>
-    <?php if(isset($sms)): ?>
+    <?php if(isset($msg)): ?>
         <div class="alert alert-success">
-            <?= $sms ?>
+            <?= $msg ?>
         </div>
     <?php endif ?>
-    <a href="?p=admin.products.create"  class="btn btn-primary">Create</i></a>
-    <table class="table-responsive">
-    <?php $sum = 1; ?>
+    <a href="?p=admin.Categories.create"  class="btn btn-primary">Create</i></a>
+    <br>
+    <div class="row">
+        <div class="col-md-4"></div>
+    <table class="table-responsive col-md-8">
+        <?php $sum = 1; ?>
         <thead>
             <th>#</th>
             <th>Action</th>
-            <th>Image</th>
-            <th>Product</th>
             <th>Category</th>
-            <th>Brand</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Key Words</th>
-            <th>Date</th>
             <th>status</th>
         </thead>
         <tbody>
-            <?php foreach($products as $product): ?>
+            <?php foreach($categories as $categorie): ?>
             <tr>
                 <form method="post" action="">
                     <td><?= $sum++ ?></td>
                     <td style="text-align:center;">
-                        <button type="button" value="<?= $product['pid'] ?>" style="margin-bottom:5px;" class="btn btn-danger sup">Delete</button>
-                        <a href="?p=admin.products.create&cre=<?= $product['pid'] ?>" class="btn btn-primary update">update</i></a>
+                        <button type="button" value="<?= $categorie->getCid() ?>" style="margin-bottom:5px;" class="btn btn-danger supcat">Delete</button>
+                        <a href="?p=admin.Categories.update&updcat=<?= $categorie->getCid() ?>" class="btn btn-primary updatecat">update</i></a>
                     </td>
-                    <td><img src="/img/<?= $product['product_img'] ?>" width="100" height="50"></td>
-                    <td><?= $product['product_name'] ?></td>
-                    <td><?= $product['category_name'] ?></td>
-                    <td><?= $product['brand_name'] ?></td>
-                    <td><?= $product['product_price'] ?></td>
-                    <td><?= $product['product_stock'] ?></td>
-                    <td><?= $product['product_key'] ?></td>
-                    <td><?= $product['added_date'] ?></td>
-                    <td><?= $product['p_status'] ?></td>
+                    <td><?= $categorie->getCategory_name() ?></td>
+                    <td><?= $categorie->getStatus() ?></td>
                 </form>
             </tr>
             <?php 
@@ -52,10 +40,11 @@
         </tbody>
     </table>
     <p><br></p>
-    <?php $link = "?p=admin.products.index"; ?>
+    <?php $link = "?p=admin.categories.index"; ?>
     <div class="col text-center">
         <?= $pagination->previousLink($link); ?>
         <?= $pagination->nextLink($link); ?>
+    </div>
     </div>
     <div class="row">
         <div class="col-md-8">
@@ -88,15 +77,15 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 <script>
       $(document).ready(function(){
-        $(".sup").click(function(event){
+        $(".supcat").click(function(event){
          if(confirm("Voulez-vous vraiment effectuer cette opération ?")){
             var dele = $(this).val()
             $.ajax({
                 url     :"",
                 method  : "POST",
-                data    : {supp:dele},
+                data    : {suppcat:dele},
                 success : function(data){
-                    window.location.href = "?p=admin.products.index"
+                    window.location.href = "?p=admin.categories.index"
                 }
             })
         }

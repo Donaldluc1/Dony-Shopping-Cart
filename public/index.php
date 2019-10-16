@@ -1,9 +1,10 @@
 <?php
 
-use App\Controller\Admin\ProductsController as AppProductsController;
+use App\Controller\Admin\AdminsController;
 use App\Controller\CartController;
 use App\Controller\ProductsController;
 use CoffeeCode\Uploader\Image;
+use Core\Auth\DBAuth;
 
 require '../vendor/autoload.php';
 
@@ -51,6 +52,16 @@ if(isset($_POST['update']) && $_POST['update'] === '1'){
 if(isset($_POST['supp'])){
     $supp = $_POST['supp'];
 }
+if(isset($_POST['login']) && $_POST['login'] === '1'){
+    $login = $_POST;
+}
+/*
+header('HTTP/1.0 404 Not Found');
+die('Page Introuvable'); */
+//Auth
+
+
+
 ob_start();
 if($p === 'home'){
     $controller = new ProductsController();
@@ -90,23 +101,18 @@ if($p === 'home'){
     }else{
         $controller->index();
     }
-}elseif($p === 'admin.products.index'){
-    $controller = new AppProductsController();
-    if(isset($supp) && !is_null($supp)){
-        $controller->delete($supp);
-    }else{
-        $controller->index();
-    }
-}elseif($p === 'admin.products.create'){
-    $controller = new AppProductsController();
-    if(isset($create) && !is_null($create)){
-        $controller->add($create, $upload);
-    }elseif(isset($update) && !is_null($update)){
-        $controller->update($update, $photo, $update['pid']);
-    }elseif(isset($cre) && !is_null($cre)){
-        $controller->edit($cre);
-    }else{
-        $controller->create();
-    }
-}
+}else{
 
+    $auth = new DBAuth();
+    if($p === 'login' || !$auth->logged()){
+        header('HTTP/1.0 403 Forbiden');
+        $controller = new AdminsController();
+        if(isset($login)){
+            $controller->index($login);
+        }else{
+            $controller->index();
+        }
+    }
+
+
+}

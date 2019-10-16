@@ -10,24 +10,22 @@ final class CategoryTable extends Table{
     protected $class = Categories::class;
 
 
-    public function updateCategory(Categories $categories): void
+    public function updateCategory(Categories $categories, $id): void
     {
         $this->update([
-            'cid' => $categories->getCid(),
             'parent_cat' => $categories->getParent_cat(),
             'category_name' => $categories->getCategory_name(),
             'status' => $categories->getStatus()
-        ], $categories->getCid(), $categories->getCid());
+        ], $id, "cid");
     }
 
     public function createCategory(Categories $categories): void
     {
         $id = $this->create([
-            'cid' => $categories->getCid(),
             'parent_cat' => $categories->getParent_cat(),
             'category_name' => $categories->getCategory_name(),
             'status' => $categories->getStatus()
-        ], $categories->getCid(), $categories->getCid());
+        ]);
         $categories->setCid($id);
     }
 
