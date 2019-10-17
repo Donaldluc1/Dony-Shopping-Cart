@@ -3,7 +3,6 @@
 use App\Controller\Admin\AdminsController;
 use App\Controller\CartController;
 use App\Controller\ProductsController;
-use CoffeeCode\Uploader\Image;
 use Core\Auth\DBAuth;
 
 require '../vendor/autoload.php';
@@ -32,28 +31,14 @@ if(isset($_POST['upd']) && !empty($_POST['upd'])){
 if(isset($_POST['delete']) && !empty($_POST['delete'])){
     $delete = htmlentities($_POST['delete']);
 }
-if(isset($_POST['add']) && $_POST['add'] === '1'){
-    $image = new Image("img", "images");
-     if (!empty($_FILES)) {
-    $upload = $image->upload($_FILES['upload'], $_POST['product_name']);
-}
-    $create = $_POST;
-}
-if(isset($_GET['cre']) && !empty($_GET['cre'])){
-    $cre = htmlentities($_GET['cre']);
-}
-if(isset($_POST['update']) && $_POST['update'] === '1'){
-    $image = new Image("img", "images");
-    if (!empty($_FILES)) {
-   $photo = $image->upload($_FILES['upload'], $_POST['product_name']);
-}
-   $update  = $_POST;
-}
-if(isset($_POST['supp'])){
-    $supp = $_POST['supp'];
-}
 if(isset($_POST['login']) && $_POST['login'] === '1'){
     $login = $_POST;
+}
+if(isset($_GET['search'])){
+    $search = $_GET['search'];
+    $controller = new ProductsController();
+    $controller->search($search);
+    exit();
 }
 /*
 header('HTTP/1.0 404 Not Found');

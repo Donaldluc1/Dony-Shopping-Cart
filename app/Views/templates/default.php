@@ -16,14 +16,15 @@
 </head>
 <body>
 <div class="top-nav-bar">
+        <form action="" method="" style="display:inline;">
         <div class="search-box">
             <i class="fa fa-bars" id="menu-btn" onclick="openmenu()"></i>
             <i class="fa fa-times" id="close-btn" onclick="closemenu()"></i>
             <a href="/"> <img src="/img/client1.png" alt="" class="logo"></a>
-            <input type="text" class="form-control" id="search">
-            <span class="input-group-text" id="search_btn"><i class="fa fa-search"></i></span>    
+            <input type="text" name="search" class="form-control" id="search">
+            <button type="submit" class="input-group-text" id="search_btn"><i class="fa fa-search"></i></button>    
         </div>
-            
+        </form>
         <div class="menu-bar">
             <ul>
                 <?php if(isset($_SESSION['auth'])): ?>
@@ -41,7 +42,7 @@
                     </span></a></li>
                     <li><a href="?p=products">Products</a></li>	    
                     <li><a href="#">Sign Up</a></li>
-                    <li><a href="index.php?p=login">Login</a></li>
+                    <li><a href="#">Login</a></li>
                 <?php endif ?>
             </ul>
         </div>

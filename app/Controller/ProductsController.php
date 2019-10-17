@@ -2,8 +2,6 @@
 namespace App\Controller;
 
 use App\Model\Cart;
-use App\Model\Product;
-use App\ObjectHelper;
 use App\Table\BrandTable;
 use App\Table\CartTable;
 use App\Table\CategoryTable;
@@ -86,5 +84,11 @@ class ProductsController extends AppController {
         $product = $this->productsTable->find($id, $tid);
         $cardcount = $this->numProd();
         $this->render('products.product', compact('product', 'cardcount'));
+    }
+
+    public function search($key)
+    {
+        [$products, $pagination] = $this->productsTable->findPaginated(" WHERE product_key LIKE '%$key%' ");
+        $this->render('products.search', compact('products', 'pagination', 'key'));
     }
 }
