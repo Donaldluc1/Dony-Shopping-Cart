@@ -1,7 +1,7 @@
 <div class="container text-center">
     <?php if(isset($_GET['del'])): ?>
         <div class="alert alert-success">
-            The product was deleted successfully !!!
+            The action  was Completed successfully !!!
         </div>
     <?php endif ?>
     <table class="table-responsive">

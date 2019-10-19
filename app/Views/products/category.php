@@ -1,3 +1,4 @@
+<div>
 
 <div class="side-menu" id="side-menu">
     <h2>Categories</h2>
@@ -65,3 +66,4 @@ $link = "?p=category&id=$id"; ?>
         <?= $pagination->previousLink($link); ?>
         <?= $pagination->nextLink($link); ?>
     </div>
+</div>
