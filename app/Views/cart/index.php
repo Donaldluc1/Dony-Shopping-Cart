@@ -37,11 +37,25 @@
     </table>
     <p><br></p>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div><h3>Grand Total</h3></div>
         </div>
         <div class="col-md-4">
-            <div><?= $sum ?></h1></div>
+            <div><h1><?= $sum ?></h1></div>
+        </div>
+        <div class="col-md-4">
+            <form action="https://www.sandbox.paypal.com/cgi-bin/websrc" method="post">
+                <input type="hidden" name="cmd" value="_cart">
+                <input type="hidden" name="business" value="seller@designerfotos.com">
+                <input type="hidden" name="upload" value="1">
+
+                <input type="hidden" name="item_name" value="hat">
+                <input type="hidden" name="item_number" value="123">
+                <input type="hidden" name="amount" value="15.00">
+
+                <input type="image" name="submit" src="https://www.paypalobjects.com/en_us/i/btn/btn_buynow_LG.gif" 
+                alt="PayPal - the safer, easier way to pay online">
+            </form>
         </div>
     </div>
 </div>
